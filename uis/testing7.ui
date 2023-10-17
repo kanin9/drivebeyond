@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1440</width>
+    <height>900</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#parentWidget { border-image: url("uis/testing7bg.PNG") 0 0 0 0 stretch stretch; }</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="button">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>620</y>
+      <width>221</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>221</width>
+      <height>91</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+    <size>
+     <width>221</width>
+     <height>91</height>
+    </size>
+   </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url("uis/starttest.png")</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1440</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
