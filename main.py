@@ -64,7 +64,7 @@ locale = {
         'happy': 'happiness',
         'sad': 'sadness',
         'angry': 'anger',
-        'surprise': 'surprise',
+        'surprise': 'wonder',
         'disgust': 'disgust',
         'neutral': 'neutrality'
     }
@@ -320,6 +320,10 @@ class TrainingScreen(QMainWindow):
             self.header.setText(f"<P><font font-family='Bahnschrift' font-size=30>«Тестті бастау» түймесін басып,<br></font> <b><big>{locale['kz'][self.emotion]}</big></b> <font font-family='Bahnschrift' font-size=30>эмоциясын көрсетуге тырысыңыз</font></P>")
             self.returnButton.setStyleSheet("border-image: url('uis/goback_kz.png');")
         elif lang == "en":
+            fullPath = os.path.join(os.getcwd() + f"/resources/audio/en/{self.emotion}.mp3")
+            url = QUrl.fromLocalFile(fullPath)
+            self.audio = QMediaContent(url)
+
             self.header.setText(
                 f"<P><font font-family='Bahnschrift' font-size=30>Press the «Start the test» button and try to portray <br></font> <b><big>{locale['en'][self.emotion]}</big></b> <font font-family='Bahnschrift' font-size=30></font></P>")
             self.returnButton.setStyleSheet("border-image: url('uis/goback_en.png');")
