@@ -59,6 +59,14 @@ locale = {
         'surprise': 'аң-таң',
         'disgust': 'жиіркеніш',
         'neutral': 'бейтараптық'
+    },
+    'en': {
+        'happy': 'happiness',
+        'sad': 'sadness',
+        'angry': 'anger',
+        'surprise': 'surprise',
+        'disgust': 'disgust',
+        'neutral': 'neutrality'
     }
 }
 
@@ -171,6 +179,16 @@ class GuidingScreen(QDialog):
                 self.setStyleSheet('#parentWidget { border-image: url("' + f"{self.ui[:-3] + 'bg_kz' + '.PNG'}" + '") 0 0 0 0 stretch stretch; }');
             except Exception as e:
                 print(e)
+        elif lang == "en":
+            if self.ui != "uis/mainscreen.ui" and self.ui != "uis/finalscreen.ui":
+                self.returnButton.setStyleSheet("border-image: url('uis/goback_en.png');")
+            if hasattr(self, "changepage"):
+                self.bruh.setStyleSheet("border-image: url('uis/buttonbg_en.png');")
+            try:
+                self.setStyleSheet('#parentWidget { border-image: url("' + f"{self.ui[:-3] + 'bg_en' + '.PNG'}" + '") 0 0 0 0 stretch stretch; }');
+            except Exception as e:
+                print(e)
+
 
 class ReactionPopup(QLabel):
     def __init__(self, resource, parent=None, size=(256, 256)):
@@ -301,24 +319,35 @@ class TrainingScreen(QMainWindow):
 
             self.header.setText(f"<P><font font-family='Bahnschrift' font-size=30>«Тестті бастау» түймесін басып,<br></font> <b><big>{locale['kz'][self.emotion]}</big></b> <font font-family='Bahnschrift' font-size=30>эмоциясын көрсетуге тырысыңыз</font></P>")
             self.returnButton.setStyleSheet("border-image: url('uis/goback_kz.png');")
+        elif lang == "en":
+            self.header.setText(
+                f"<P><font font-family='Bahnschrift' font-size=30>Press the «Start the test» button and try to portray <br></font> <b><big>{locale['en'][self.emotion]}</big></b> <font font-family='Bahnschrift' font-size=30></font></P>")
+            self.returnButton.setStyleSheet("border-image: url('uis/goback_en.png');")
 
         if not self.done:
             if lang == "ru":
                 self.button.setStyleSheet('border-image: url("uis/starttest.PNG")')
-            else:
+            elif lang == "kz":
                 self.button.setStyleSheet('border-image: url("uis/starttest_kz.png")')
+            elif lang == "en":
+                self.button.setStyleSheet('border-image: url("uis/starttest_en.png")')
         else:
             if lang == "ru":
                 self.button.setStyleSheet('border-image: url("uis/restart.png")')
-            else:
+            elif lang == "kz":
                 self.button.setStyleSheet('border-image: url("uis/restart_kz.png")')
+            elif lang == "en":
+                self.button.setStyleSheet('border-image: url("uis/restart_en.png")')
+
             if self.skipButton is None:
                 self.skipButton = QPushButton()
                 # self.skipButton.move(1100, 620)
                 if lang == "ru":
                     self.skipButton.setStyleSheet('border-image: url("uis/skipbutton.png")')
-                else:
+                elif lang == "kz":
                     self.skipButton.setStyleSheet('border-image: url("uis/skipbutton_kz.png")')
+                else:
+                    self.skipButton.setStyleSheet('border-image: url("uis/skipbutton_en.png")')
 
                 self.skipButton.setFixedSize(221, 91)
                 self.skipButton.clicked.connect(self.next)
@@ -411,8 +440,11 @@ class TrainingScreen(QMainWindow):
             self.skipButton = QPushButton()
             if lang == "ru":
                 self.skipButton.setStyleSheet('border-image: url("uis/skipbutton.png")')
-            else:
+            elif lang == "kz":
                 self.skipButton.setStyleSheet('border-image: url("uis/skipbutton_kz.png")')
+            else:
+                self.skipButton.setStyleSheet('border-image: url("uis/skipbutton_en.png")')
+
             self.skipButton.setFixedSize(221, 91)
             self.skipButton.clicked.connect(self.next)
             self.bottomLayout.addWidget(self.skipButton, alignment=QtCore.Qt.AlignBottom | QtCore.Qt.AlignCenter)
@@ -428,8 +460,10 @@ class TrainingScreen(QMainWindow):
 
             if lang == "kz":
                 ss = 'border-image: url("uis/buttonbg_kz.png")'
-            else:
+            elif lang == "ru":
                 ss = 'border-image: url("uis/buttonbg.png")'
+            else:
+                ss = 'border-image: url("uis/buttonbg_en.png")'
 
             self.done = True
             self.elapsed = time.time() - self.startTime
@@ -506,6 +540,9 @@ class SelectionMenu(QWidget):
         if lang == "kz":
             self.label.setText("Киындық деңгейін таңдаңыз")
             self.returnButton.setStyleSheet("border-image: url('uis/goback_kz.png');")
+        elif lang == "en":
+            self.label.setText("Choose the exercise difficulty")
+            self.returnButton.setStyleSheet("border-image: url('uis/goback_en.png');")
 
 class ChallengeWidget(QWidget):
     def __init__(self, level):
@@ -608,6 +645,11 @@ class ChallengeWidget(QWidget):
             self.header.setText(f"<P><big><b>{locale['kz'][self.emotion].capitalize()}</b></big> эмоциясы бар суретті таңдап алыңыз</P>")
             self.returnButton.setStyleSheet("border-image: url('uis/goback_kz.png');")
             self.next.setStyleSheet('border-image: url("uis/buttonbg_kz.png")')
+        elif lang == "en":
+            self.header.setText(
+                f"<P>Choose the picture that portrays <big><b>{locale['en'][self.emotion]}</b></big></P>")
+            self.returnButton.setStyleSheet("border-image: url('uis/goback_en.png');")
+            self.next.setStyleSheet('border-image: url("uis/buttonbg_en.png")')
 
     def press(self, pick):
         if pick == self.emotion:
@@ -662,6 +704,10 @@ class CongratulationWidget(QDialog):
             self.header.setText("Сен деңгейден өттің, жарайсың!")
             self.returnButton.setStyleSheet("border-image: url('uis/goback_kz.png');")
             self.next.setStyleSheet('border-image: url("uis/buttonbg_kz.png")')
+        elif lang == "en":
+            self.header.setText("Well done, you completed the level!")
+            self.returnButton.setStyleSheet("border-image: url('uis/goback_en.png');")
+            self.next.setStyleSheet('border-image: url("uis/buttonbg_en.png")')
 
 class StatisticsWidget(QWidget):
     def __init__(self):
@@ -673,12 +719,12 @@ class StatisticsWidget(QWidget):
         self.chart = QChart()
         self.series = QStackedBarSeries()
 
-        surprise = QBarSet("Удивление")
-        happy = QBarSet("Счастье")
-        neutral = QBarSet("Нейтрал")
-        angry = QBarSet("Злость")
-        sad = QBarSet("Грусть")
-        disgust = QBarSet("Отвращение")
+        surprise = QBarSet("Wonder")
+        happy = QBarSet("Happiness")
+        neutral = QBarSet("Neutrality")
+        angry = QBarSet("Anger")
+        sad = QBarSet("Sadness")
+        disgust = QBarSet("Disgust")
 
         self.sets = {
             'surprise': surprise,
@@ -705,11 +751,11 @@ class StatisticsWidget(QWidget):
             self.series.append(barset)
 
         self.chart.addSeries(self.series)
-        self.chart.setTitle("Время исполнения уровней")
+        self.chart.setTitle("Level completion time")
         self.chart.setTitleFont(QFont("Bahnschrift", 16, QFont.Bold))
 
         axisX = QBarCategoryAxis()
-        axisX.append(['Первый', 'Второй', 'Третий'])
+        axisX.append(['First', 'Second', 'Third'])
         axisX.setLabelsFont(QFont("Arial", 12))
 
         self.chart.addAxis(axisX, Qt.AlignBottom)
@@ -826,16 +872,17 @@ class PerformanceWidget(QWidget):
         self.axisY = QValueAxis()
         self.axisY.setMinorTickCount(10)
         self.axisY.setLabelsFont(QFont("Arial", 12))
+        self.axisY.setTitleText('Time / seconds')
         self.chart.addAxis(self.axisY, Qt.AlignLeft)
         self.series.attachAxis(self.axisY)
 
         self.chart.addSeries(self.series)
-        self.chart.setTitle("Статистика по уровню")
+        self.chart.setTitle("Level statistics")
         self.chart.setTitleFont(QFont("Bahnschrift", 16, QFont.Bold))
 
         self.axisX = QBarCategoryAxis()
 
-        self.axisX.append(["Счастье", "Злость", "Грусть", "Удивление", "Отвращение", "Нейтральность"])
+        self.axisX.append(["Happiness", "Anger", "Sadness", "Wonder", "Disgust", "Neutrality"])
 
         self.chart.legend().setVisible(False)
         #self.chart.legend().setAlignment(Qt.AlignBottom)
@@ -874,6 +921,9 @@ class PerformanceWidget(QWidget):
         if lang == "kz":
             self.returnButton.setStyleSheet("border-image: url('uis/goback_kz.png');")
             self.next.setStyleSheet('border-image: url("uis/buttonbg_kz.png")')
+        elif lang == "en":
+            self.returnButton.setStyleSheet("border-image: url('uis/goback_en.png');")
+            self.next.setStyleSheet('border-image: url("uis/buttonbg_en.png")')
 
         upperLimit = 0.0
 
@@ -950,7 +1000,7 @@ class LanguageChooser(QWidget):
     def __init__(self):
         super().__init__()
         self.layout = QVBoxLayout()
-        self.label = QLabel("Выберите язык / Тілді таңдаңыз")
+        self.label = QLabel("Выберите язык / Тілді таңдаңыз / Choose your language")
         self.label.setFont(QFont("Bahnschrift", 28, QFont.Bold))
         self.label.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignTop)
 
@@ -967,9 +1017,15 @@ class LanguageChooser(QWidget):
         self.secondButton.setStyleSheet("border-image: url('uis/kz.png')")
         self.secondButton.clicked.connect(partial(setLanguage, "kz"))
 
+        self.thirdButton = QPushButton()
+        self.thirdButton.setFixedSize(200, 200)
+        self.thirdButton.setStyleSheet("border-image: url('uis/en.png')")
+        self.thirdButton.clicked.connect(partial(setLanguage, "en"))
+
         self.layout.addWidget(self.label)
         self.centralLayout.addWidget(self.firstButton)
         self.centralLayout.addWidget(self.secondButton)
+        self.centralLayout.addWidget(self.thirdButton)
         self.central.setLayout(self.centralLayout)
         self.layout.addWidget(self.central, alignment=QtCore.Qt.AlignTop)
 
