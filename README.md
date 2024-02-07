@@ -3,6 +3,9 @@ Drive Beyond
 
 A computer application for developing emotion recognition and expression skills in people with autism spectrum disorders
 
+[More about us](https://drivebeyond.tilda.ws/media)
+
+
 ## Installation
 
 Install with Python 3.9
